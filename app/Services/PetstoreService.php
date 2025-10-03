@@ -70,4 +70,17 @@ class PetstoreService
     {
         return $this->getPetsByStatus('sold');
     }
+
+    /**
+     * Add a new pet to the Petstore API.
+     * Returns the API response (should contain id if successful).
+     */
+    public function addPet(string $name, string $status)
+    {
+        $data = [
+            'name' => $name,
+            'status' => $status,
+        ];
+        return $this->repository->addPet($data);
+    }
 }

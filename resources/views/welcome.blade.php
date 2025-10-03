@@ -17,6 +17,7 @@
 <body>
 <div class="container">
     <h1>{{ __('Lista zwierząt z Petstore API') }}</h1>
+    <a href="{{ route('pets.create') }}" style="display:inline-block;margin-bottom:1.5rem;">{{ __('Dodaj zwierzę') }}</a>
     <form method="get" action="{{ url('/') }}">
         <label for="status">{{ __('Status') }}:</label>
         <select name="status" id="status">
