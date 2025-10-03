@@ -19,9 +19,15 @@ describe('PetstoreService add', function () {
             'name' => 'Olsza',
             'status' => 'available',
         ];
+
+        $this->mockRepository
+            ->shouldReceive('getPetById')
+            ->andReturn([]);
         $this->mockRepository
             ->shouldReceive('addPet')
-            ->with($petData)
+            ->with(Mockery::on(function($data) {
+                return isset($data['name'], $data['status'], $data['id']);
+            }))
             ->once()
             ->andReturn($apiResponse);
         $result = $this->service->addPet('Olsza', 'available');
@@ -33,13 +39,18 @@ describe('PetstoreService add', function () {
             'name' => 'Olsza',
             'status' => 'available',
         ];
+
+        $this->mockRepository
+            ->shouldReceive('getPetById')
+            ->andReturn([]);
         $this->mockRepository
             ->shouldReceive('addPet')
-            ->with($petData)
+            ->with(Mockery::on(function($data) {
+                return isset($data['name'], $data['status'], $data['id']);
+            }))
             ->once()
             ->andReturn(null);
         $result = $this->service->addPet('Olsza', 'available');
         expect($result)->toBeNull();
     });
 });
-
