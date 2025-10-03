@@ -20,6 +20,15 @@ class HomeController extends Controller
 
     public function index(Request $request): View
     {
+        $status = $request->get('status');
+        $pets = collect();
+        if ($status) {
+            $pets = collect($this->petstoreService->getPetsByStatus($status));
+        }
+        return view('welcome', [
+            'pets' => $pets,
+            'status' => $status,
+        ]);
     }
 
     public function create()
