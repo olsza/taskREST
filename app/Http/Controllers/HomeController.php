@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\PetstoreService;
 use Illuminate\View\View;
-use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePetRequest;
+use App\Http\Requests\UpdatePetRequest;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -48,5 +48,26 @@ class HomeController extends Controller
             Session::flash('error', __('Nie udało się dodać zwierzęcia.'));
         }
         return redirect()->back()->withInput();
+    }
+
+    public function show($id)
+    {
+        $pet = $this->petstoreService->getPetById($id);
+        if (!$pet) {
+            abort(404);
+        }
+        return view('pets.show', ['pet' => $pet]);
+    }
+
+    public function update(UpdatePetRequest $request, $id)
+    {
+        $validated = $request->validated();
+        $result = $this->petstoreService->updatePetFull($validated);
+        if ($result) {
+            Session::flash('success', __('Zaktualizowano zwierzę.'));
+        } else {
+            Session::flash('error', __('Nie udało się zaktualizować zwierzęcia.'));
+        }
+        return redirect()->back();
     }
 }

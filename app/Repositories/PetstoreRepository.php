@@ -46,3 +46,46 @@ class PetstoreRepository
         }
     }
 
+    public function getPetById($id)
+    {
+        $baseUrl = config('petstore.base_url');
+        $url = rtrim($baseUrl, '/') . '/pet/' . $id;
+        $response = Http::get($url);
+        if ($response->successful()) {
+            return $response->json();
+        }
+        return null;
+    }
+
+    public function updatePet($id, $name, $status)
+    {
+        $baseUrl = config('petstore.base_url');
+        $url = rtrim($baseUrl, '/') . '/pet';
+
+        $current = $this->getPetById($id);
+        if (!$current) {
+            return false;
+        }
+
+        $data = $current;
+        $data['name'] = $name;
+        $data['status'] = $status;
+
+        if (!isset($data['photoUrls'])) $data['photoUrls'] = [];
+        if (!isset($data['tags'])) $data['tags'] = [];
+        $response = Http::put($url, $data);
+        return $response->successful();
+    }
+
+    public function updatePetFull(array $data)
+    {
+        $baseUrl = config('petstore.base_url');
+        $url = rtrim($baseUrl, '/') . '/pet';
+
+        if (!isset($data['photoUrls'])) $data['photoUrls'] = [];
+        if (!isset($data['tags'])) $data['tags'] = [];
+        $response = Http::put($url, $data);
+
+        return $response->successful();
+    }
+}

@@ -83,4 +83,36 @@ class PetstoreService
         ];
         return $this->repository->addPet($data);
     }
+
+    /**
+     * Get a pet by its ID.
+     *
+     * @param int $id
+     * @return array
+     */
+    public function getPetById($id)
+    {
+        return $this->repository->getPetById($id);
+    }
+
+    /**
+     * Update a pet's information.
+     *
+     * @param int $id
+     * @param string $name
+     * @param string $status
+     * @return array
+     */
+    public function updatePet($id, $name, $status)
+    {
+        return $this->repository->updatePet($id, $name, $status);
+    }
+
+    /**
+     * Aktualizuje zwierzę przekazując całą strukturę (zgodnie z API Petstore)
+     */
+    public function updatePetFull(array $data)
+    {
+        return $this->repository->updatePetFull($data);
+    }
 }

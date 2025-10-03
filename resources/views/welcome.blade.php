@@ -32,7 +32,10 @@
             <ul>
                 @foreach($pets as $pet)
                     <li>
-                        <strong>{{ __('ID') }}:</strong> {{ $pet['id'] ?? '-' }}<br>
+                        <strong>{{ __('ID') }}:
+                        <a href="{{ route('pets.show', $pet['id']) }}" target="_blank">
+                            </strong> {{ $pet['id'] ?? '-' }}
+                        </a><br>
                         <strong>{{ __('Nazwa') }}:</strong> {{ $pet['name'] ?? '-' }}<br>
                         <strong>{{ __('Status') }}:</strong> {{ $pet['status'] ?? '-' }}
                     </li>
