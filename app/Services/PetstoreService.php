@@ -115,4 +115,15 @@ class PetstoreService
     {
         return $this->repository->updatePetFull($data);
     }
+
+    /**
+     * Delete a pet by its ID.
+     *
+     * @param int $id
+     * @return array
+     */
+    public function deletePet($id)
+    {
+        return $this->repository->deletePet($id);
+    }
 }

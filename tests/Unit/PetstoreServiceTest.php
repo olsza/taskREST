@@ -83,4 +83,15 @@ describe('PetstoreService', function () use ($allPets) {
         $result = $this->service->getPetsByStatus('ghost');
         expect($result)->toBeArray()->toBeEmpty();
     });
+
+    it('deletes a pet by id', function () {
+        $petId = 2;
+        $this->mockRepository
+            ->shouldReceive('deletePet')
+            ->with($petId)
+            ->once()
+            ->andReturn(true);
+        $result = $this->service->deletePet($petId);
+        expect($result)->toBeTrue();
+    });
 });

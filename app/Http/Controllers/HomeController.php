@@ -70,4 +70,15 @@ class HomeController extends Controller
         }
         return redirect()->back();
     }
+
+    public function destroy($id)
+    {
+        $result = $this->petstoreService->deletePet($id);
+        if ($result) {
+            \Session::flash('success', __('Zwierzę zostało usunięte.'));
+        } else {
+            \Session::flash('error', __('Nie udało się usunąć zwierzęcia.'));
+        }
+        return redirect()->route('home')->withInput();
+    }
 }

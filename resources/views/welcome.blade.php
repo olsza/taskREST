@@ -38,6 +38,11 @@
                         </a><br>
                         <strong>{{ __('Nazwa') }}:</strong> {{ $pet['name'] ?? '-' }}<br>
                         <strong>{{ __('Status') }}:</strong> {{ $pet['status'] ?? '-' }}
+                        <form action="{{ route('pets.destroy', $pet['id']) }}" method="POST" style="display:inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('{{ __('Czy na pewno chcesz usunąć to zwierzę?') }}')">{{ __('Usuń') }}</button>
+                        </form>
                     </li>
                 @endforeach
             </ul>

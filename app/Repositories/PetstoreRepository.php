@@ -88,4 +88,12 @@ class PetstoreRepository
 
         return $response->successful();
     }
+
+    public function deletePet($id)
+    {
+        $baseUrl = config('petstore.base_url');
+        $url = rtrim($baseUrl, '/') . '/pet/' . $id;
+        $response = \Illuminate\Support\Facades\Http::delete($url);
+        return $response->successful();
+    }
 }
