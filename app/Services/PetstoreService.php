@@ -77,7 +77,9 @@ class PetstoreService
      */
     public function addPet(string $name, string $status)
     {
+        $id = $this->generateRandomId();
         $data = [
+            'id' => $id,
             'name' => $name,
             'status' => $status,
         ];
@@ -125,5 +127,15 @@ class PetstoreService
     public function deletePet($id)
     {
         return $this->repository->deletePet($id);
+    }
+
+    private function generateRandomId(): string
+    {
+        do {
+            $id = (string) random_int(0, 999999999);
+            $pet = $this->repository->getPetById($id);
+        } while (!empty($pet) && isset($pet['id']) && $pet['id'] == $id);
+
+        return $id;
     }
 }
